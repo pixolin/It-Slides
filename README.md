@@ -1,6 +1,8 @@
 # It Slides!
 
+<!--
 ![It Slides!](/assets/banner-1544x500.png)
+-->
 
 ## Description ##
 
