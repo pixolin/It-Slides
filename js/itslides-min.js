@@ -1,0 +1,1 @@
+jQuery(document).ready(function($){$(".itslides").unslider({autoplay:!0,animation:"fade",infinite:!0,speed:1500,delay:5e3})});

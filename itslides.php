@@ -33,16 +33,35 @@ Thank you for providing your code to the public.
 
 defined( 'ABSPATH' ) or die( 'Direct access is not allowed.' );
 
-// retrieve plugin path
+// store plugin path
 $itslides_plugin_path = plugin_dir_path( __FILE__ );
-
 // store plugin basename
 $itslides_plugin_base = plugin_basename( __FILE__ );
 
-// Set up PHP Class Itslides
-require_once $itslides_plugin_path .'/includes/itslides-class.php';
 
-$itslides = new Itslides;
+// Create Custom Post Type itslider
+require_once $itslides_plugin_path .'/includes/itslides-cpt.php';
+$cpt = new ItslidesCPT();
+add_action( 'init', array( $cpt, 'create_post_type') );
+
+// Create Metabox to select slides
+require_once $itslides_plugin_path .'/includes/itslides-metabox.php';
+$mb = new ItslidesMB();
+add_action( 'add_meta_boxes', array( $mb, 'metabox' ) );
+add_action( 'save_post', array( $mb, 'save' ) );
+
+// Register and enqueue JavaScript
+require_once $itslides_plugin_path .'/includes/itslides-enqueue-scripts.php';
+add_action( 'wp_enqueue_scripts', 'itslides_enqueue_js' );
+
+// Register and enqueue JavaScript
+require_once $itslides_plugin_path .'/includes/itslides-enqueue-style.php';
+add_action( 'wp_enqueue_scripts', 'itslides_enqueue_style' );
+
+// Add Shortcode
+require_once $itslides_plugin_path .'/includes/itslides-shortcode.php';
+$sc = new ItslidesSC();
+
 
 /*
 Use later for options …
@@ -72,7 +91,7 @@ if ( ! function_exists( 'itslides_initial_options' ) ) {
 }
 */
 
-/*
+
 //Localize
 add_action( 'plugins_loaded', 'itslides_load_textdomain' );
 
@@ -81,4 +100,3 @@ if ( ! function_exists( 'itslides_load_textdomain' ) ) {
 		load_plugin_textdomain( 'itslides', false, plugin_basename( dirname( __FILE__ ) ).'/languages' );
 	}
 }
-*/

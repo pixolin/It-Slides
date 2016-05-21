@@ -1,10 +1,12 @@
 <?php
+/*
+ * Creates a Custom Post Type Slider
+ * which allows to set up different sliders
+ */
 
-class Itslides {
-	function __construct(){
-		add_action( 'init', array( $this, 'create_post_type' ) );
-	}
-	// Register Custom Post Type
+class ItslidesCPT {
+
+	// Register Custom Post Type itslider
 	function create_post_type() {
 
 		$labels = array(
@@ -30,7 +32,7 @@ class Itslides {
 			'label'                 => __( 'Slider', 'itslides' ),
 			'description'           => __( 'Make it slide: Create a new slider.', 'itslides' ),
 			'labels'                => $labels,
-			'supports'              => array( 'title', 'metaboxes', ),
+			'supports'              => array( 'title', 'metaboxes' ),
 			'hierarchical'          => false,
 			'public'                => false,
 			'show_ui'               => true,
@@ -46,7 +48,5 @@ class Itslides {
 			'capability_type'       => 'page',
 		);
 		register_post_type( 'itslider', $args );
-
 	}
-
 }
