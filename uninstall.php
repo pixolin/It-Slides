@@ -1,13 +1,13 @@
 <?php
 /*
- * Uninstall routine to delete the options for Scroll to Anchor
+ * Uninstall routine to delete the options
  */
 
-// If uninstall is not called from WordPress, exit
+// If uninstall isn't called from WordPress, exit
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit();
 }
 
-delete_option( 'scroll_to_anchor' );
+delete_option( 'itslides' );
 
 // Thank you for using my plugin. <3
