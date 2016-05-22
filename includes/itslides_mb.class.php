@@ -1,14 +1,18 @@
 <?php
 
-class ItslidesMB {
+/* Quit */
+defined('ABSPATH') OR exit;
 
-	function metabox( $post_type ) {
+if (! class_exists( 'Itslides_MB' ) ) :
+class Itslides_MB {
+
+	public static function metabox( $post_type ) {
 		$post_types = array( 'itslider' );
 		if ( in_array( $post_type, $post_types ) ) {
 			add_meta_box(
 				$id = 'itslider-meta',
 				$title = __( 'Slide', 'itslides' ),
-				$callback = array( $this, 'metabox_form' ),
+				$callback = 'metabox_form', // Fehler hier!
 				$post_type,
 				$context = 'normal',
 				$priority = 'high',
@@ -17,20 +21,9 @@ class ItslidesMB {
 		}
 	}
 
-	function get_sample_options() {
-		$options = array (
-		'Option 1' => 'option1',
-		'Option 2' => 'option2',
-		'Option 3' => 'option3',
-		'Option 4' => 'option4',
-		);
-		return $options;
-	}
-
-	function metabox_form() {
+	public static function metabox_form() {
 		global $post;
 		$repeatable_fields = get_post_meta($post->ID, '_itslide', true);
-		$options = array( $this, 'get_sample_options' );
 
 		wp_nonce_field( 'itslider_slide_box', 'itslider_slide_box_nonce' );
 		?>
@@ -59,11 +52,13 @@ class ItslidesMB {
 
         imgurl = $('img',html).attr('src');
         $('#slide-url').val(imgurl);
+				console.log(imgurl);
         tb_remove();
     }
 
 		});
 		</script>
+		Describe what we are doing here.
 		<table id="repeatable-fieldset-one" width="100%">
 		<thead>
 			<tr>
@@ -164,3 +159,5 @@ class ItslidesMB {
 	}
 
 }
+
+endif; // End Check Class Exists

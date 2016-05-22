@@ -2,10 +2,13 @@
 /*
  * Adds Shortcode [itslides]
  */
-class ItslidesSC {
-	function __construct() {
-		add_shortcode( 'itslides', array( $this, 'shortcode') );
-	}
+
+ /* Quit */
+ defined('ABSPATH') OR exit;
+
+if(! class_exists( 'Itslides_SC' ) ) :
+class Itslides_SC {
+
 	function shortcode() {
 		$out = '
 			<div class="itslides">
@@ -21,3 +24,5 @@ class ItslidesSC {
 		return $out;
 	}
 }
+
+endif; // End Check Class Exists

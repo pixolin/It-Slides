@@ -34,37 +34,42 @@ https://gist.github.com/helen/1593065, GPLv2
 Thank you for providing your code to the public.
 */
 
-defined( 'ABSPATH' ) or die( 'Direct access is not allowed.' );
+/* Quit */
+defined('ABSPATH') OR exit;
 
-// store plugin path
-$itslides_plugin_path = plugin_dir_path( __FILE__ );
-// store plugin basename
-$itslides_plugin_base = plugin_basename( __FILE__ );
+/* Konstanten */
+define('ITSLIDES_FILE', __FILE__);
+define('ITSLIDES_DIR', dirname(__FILE__));
+define('ITSLIDES_BASE', plugin_basename(__FILE__));
 
+/* Hooks */
+add_action( 'init', array( 'Itslides_CPT', 'create_post_type') );
 
-// Create Custom Post Type itslider
-require_once $itslides_plugin_path .'/includes/itslides-cpt.php';
-$cpt = new ItslidesCPT();
-add_action( 'init', array( $cpt, 'create_post_type') );
+add_action( 'add_meta_boxes', array( 'Itslides_MB', 'metabox' ) );
+add_action( 'save_post', array( 'Itslides_MB', 'save' ) );
+add_action( 'wp_enqueue_scripts', array( 'Itslides_ES', 'enqueue_js' ) );
 
-// Create Metabox to select slides
-require_once $itslides_plugin_path .'/includes/itslides-metabox.php';
-$mb = new ItslidesMB();
-add_action( 'add_meta_boxes', array( $mb, 'metabox' ) );
-add_action( 'save_post', array( $mb, 'save' ) );
+add_action( 'plugins_loaded', 'itslides_load_textdomain' );
+add_action('admin_print_scripts', 'admin_scripts');
+add_action('admin_print_styles', 'admin_styles');
 
-// Register and enqueue JavaScript
-require_once $itslides_plugin_path .'/includes/itslides-enqueue-scripts.php';
-add_action( 'wp_enqueue_scripts', 'itslides_enqueue_js' );
+// register_activation_hook( __FILE__, 'itslides_options' );
 
-// Register and enqueue JavaScript
-require_once $itslides_plugin_path .'/includes/itslides-enqueue-style.php';
-add_action( 'wp_enqueue_scripts', 'itslides_enqueue_style' );
+/* Autoload Init */
+spl_autoload_register( 'itslides_autoload' );
 
-// Add Shortcode
-require_once $itslides_plugin_path .'/includes/itslides-shortcode.php';
-$sc = new ItslidesSC();
-
+/* Autoload Funktion */
+function itslides_autoload( $class ) {
+	if ( in_array( $class, array( 'Itslides_CPT', 'Itslides_ES', 'Itslides_MB', 'Itslides_SC') ) ) {
+		require_once(
+			sprintf(
+				'%s/includes/%s.class.php',
+				ITSLIDES_DIR,
+				strtolower( $class )
+			)
+		);
+	}
+}
 
 /*
 Use later for options …
@@ -76,7 +81,6 @@ if ( is_admin() ) {
 
 /*
 // Some basic settings upon plugin activation
-register_activation_hook( __FILE__, 'itslides_initial_options' );
 
 if ( ! function_exists( 'itslides_initial_options' ) ) {
 	function itslides_initial_options() {
@@ -96,8 +100,6 @@ if ( ! function_exists( 'itslides_initial_options' ) ) {
 
 
 //Localize
-add_action( 'plugins_loaded', 'itslides_load_textdomain' );
-
 if ( ! function_exists( 'itslides_load_textdomain' ) ) {
 	function itslides_load_textdomain() {
 		load_plugin_textdomain( 'itslides', false, plugin_basename( dirname( __FILE__ ) ).'/languages' );
@@ -110,8 +112,4 @@ function admin_scripts() {
 }
 function admin_styles() {
    wp_enqueue_style('thickbox');
-}
-if (isset($_GET['post']) ) {
-	add_action('admin_print_scripts', 'admin_scripts');
-	add_action('admin_print_styles', 'admin_styles');
 }

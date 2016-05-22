@@ -4,10 +4,14 @@
  * which allows to set up different sliders
  */
 
-class ItslidesCPT {
+ /* Quit */
+ defined('ABSPATH') OR exit;
+
+if ( ! class_exists( 'Itslides_CPT') ) :
+class Itslides_CPT {
 
 	// Register Custom Post Type itslider
-	function create_post_type() {
+	public static function create_post_type() {
 
 		$labels = array(
 			'name'                  => _x( 'Sliders', 'Post Type General Name', 'itslides' ),
@@ -50,3 +54,4 @@ class ItslidesCPT {
 		register_post_type( 'itslider', $args );
 	}
 }
+endif; // End Check Class Exists
