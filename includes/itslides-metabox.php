@@ -52,10 +52,15 @@ class ItslidesMB {
 
 			// Image Uploader – but how? :)
 			$('.image-button').click(function(){
-				console.log('hellooo dolly');
 				tb_show('', 'media-upload.php?type=image&amp;TB_iframe=true');
 				return false;
 			});
+			window.send_to_editor = function(html) {
+
+        imgurl = $('img',html).attr('src');
+        $('#slide-url').val(imgurl);
+        tb_remove();
+    }
 
 		});
 		</script>
@@ -76,7 +81,7 @@ class ItslidesMB {
 		?>
 		<tr class="sortable">
 			<td><span class="dashicons dashicons-menu"></span></td>
-			<td><input type="text" class="widefat" name="image[]" value="<?php if($field['image'] != '') echo esc_attr( $field['image'] ); ?>" /></td>
+			<td><input type="text" id="slide-url" class="widefat" name="image[]" value="<?php if($field['image'] != '') echo esc_attr( $field['image'] ); ?>" /></td>
 			<td><a class="image-button button"><?php _e( 'Choose or Upload an Image', 'itslides' ); ?></a></td>
 			<td><a class="button remove-row" href="#"><?php _e( 'Remove', 'itslides'); ?></a></td>
 		</tr>
@@ -87,7 +92,7 @@ class ItslidesMB {
 		?>
 		<tr class="sortable">
 			<td><span class="dashicons dashicons-menu"></span></td>
-			<td><input type="text" class="widefat" name="image[]" /></td>
+			<td><input type="text" id="slide-url" class="widefat" name="image[]" /></td>
 			<td><a class="image-button button"><?php _e( 'Choose or Upload an Image', 'itslides' ); ?></a></td>
 			<td><a class="button remove-row" href="#"><?php _e( 'Remove', 'itslides'); ?></a></td>
 		</tr>
@@ -96,7 +101,7 @@ class ItslidesMB {
 		<!-- empty hidden one for jQuery -->
 		<tr class="empty-row screen-reader-text">
 			<td>&nbsp;</td>
-			<td><input type="text" class="widefat" name="image[]" /></td>
+			<td><input type="text" id="slide-url" class="widefat" name="image[]" /></td>
 			<td><a class="image-button button"><?php _e( 'Choose or Upload an Image', 'itslides' ); ?></a></td>
 			<td><a class="button remove-row" href="#"><?php _e( 'Remove', 'itslides'); ?></a></td>
 		</tr>

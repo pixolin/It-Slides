@@ -111,6 +111,7 @@ function admin_scripts() {
 function admin_styles() {
    wp_enqueue_style('thickbox');
 }
-
-add_action('admin_print_scripts', 'admin_scripts');
-add_action('admin_print_styles', 'admin_styles');
+if (isset($_GET['post']) ) {
+	add_action('admin_print_scripts', 'admin_scripts');
+	add_action('admin_print_styles', 'admin_styles');
+}
