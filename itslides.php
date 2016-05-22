@@ -28,6 +28,9 @@ along with Scroll to Anchor. If not, see https://www.gnu.org/licenses/gpl-2.0.ht
 Credits:
 This plugin is based on Unslider, Version 2.0 by @idiot and friends
 which has been published under the WTFPL (http://www.wtfpl.net/)
+Repeatable Metabox Fields are based on a Gist by Helen Hou-Sandí
+https://gist.github.com/helen/1593065, GPLv2
+
 Thank you for providing your code to the public.
 */
 
@@ -100,3 +103,14 @@ if ( ! function_exists( 'itslides_load_textdomain' ) ) {
 		load_plugin_textdomain( 'itslides', false, plugin_basename( dirname( __FILE__ ) ).'/languages' );
 	}
 }
+
+function admin_scripts() {
+   wp_enqueue_script('media-upload');
+   wp_enqueue_script('thickbox');
+}
+function admin_styles() {
+   wp_enqueue_style('thickbox');
+}
+
+add_action('admin_print_scripts', 'admin_scripts');
+add_action('admin_print_styles', 'admin_styles');
