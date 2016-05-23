@@ -54,5 +54,14 @@ class Itslides_ES {
 		wp_enqueue_style( 'unslider-dots' );
 
 	}
+
+	function admin_scripts() {
+		wp_enqueue_media();
+		wp_enqueue_script('media-upload');
+		wp_enqueue_script('thickbox');
+	}
+	function admin_styles() {
+		wp_enqueue_style('thickbox');
+	}
 }
 endif; // End Check Class Exists
