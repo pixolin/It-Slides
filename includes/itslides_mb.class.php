@@ -45,9 +45,9 @@ class Itslides_MB {
 		if ( $repeatable_fields ) :
 		foreach ( $repeatable_fields as $field ) {
 		?>
-		<tr class="sortable">
+		<tr class="sortable metafield">
 			<td><span class="dashicons dashicons-menu"></span></td>
-			<td><input type="text" id="slide-url" class="widefat" name="image[]" value="<?php if($field['image'] != '') echo esc_attr( $field['image'] ); ?>" /></td>
+			<td><input type="text" id="" class="widefat meta-url" name="image[]" value="<?php if($field['image'] != '') echo esc_attr( $field['image'] ); ?>" /></td>
 			<td><a class="image-button button"><?php _e( 'Choose or Upload an Image', 'itslides' ); ?></a></td>
 			<td><a class="button remove-row" href="#"><?php _e( 'Remove', 'itslides'); ?></a></td>
 		</tr>
@@ -56,18 +56,18 @@ class Itslides_MB {
 		else :
 		// show a blank one
 		?>
-		<tr class="sortable">
+		<tr class="sortable metafield">
 			<td><span class="dashicons dashicons-menu"></span></td>
-			<td><input type="text" id="slide-url" class="widefat" name="image[]" /></td>
+			<td><input type="text" id="" class="widefat meta-url" name="image[]" /></td>
 			<td><a class="image-button button"><?php _e( 'Choose or Upload an Image', 'itslides' ); ?></a></td>
 			<td><a class="button remove-row" href="#"><?php _e( 'Remove', 'itslides'); ?></a></td>
 		</tr>
 		<?php endif; ?>
 
 		<!-- empty hidden one for jQuery -->
-		<tr class="empty-row screen-reader-text">
+		<tr class="empty-row screen-reader-text metafield">
 			<td><span class="dashicons dashicons-menu"></td>
-			<td><input type="text" id="slide-url" class="widefat" name="image[]" /></td>
+			<td><input type="text" id="" class="widefat meta-url" name="image[]" /></td>
 			<td><a class="image-button button"><?php _e( 'Choose or Upload an Image', 'itslides' ); ?></a></td>
 			<td><a class="button remove-row" href="#"><?php _e( 'Remove', 'itslides'); ?></a></td>
 		</tr>

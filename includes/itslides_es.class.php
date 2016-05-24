@@ -56,9 +56,21 @@ class Itslides_ES {
 	}
 
 	function admin_scripts() {
+		//automatically fetch version number
+		$file_data = get_file_data( __FILE__, array( 'version' => 'Version' ) );
+		//use minified JavaScript, if not in DEBUG mode
+		$maybe_min = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '-min';
+		wp_register_script(
+			$handle = 'itslides-mb',
+			$src = plugins_url( "../js/itslides-mb$maybe_min.js", __FILE__ ),
+			$deps = array( 'jquery' ),
+			$ver = $file_data['version'],
+			$in_footer = true
+		);
 		wp_enqueue_media();
 		wp_enqueue_script('media-upload');
 		wp_enqueue_script('thickbox');
+		wp_enqueue_script( 'itslides-mb' );
 	}
 	function admin_styles() {
 		wp_enqueue_style('thickbox');
